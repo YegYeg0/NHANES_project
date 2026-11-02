@@ -1,57 +1,43 @@
 # Project Card
 
-## Dataset and scope 
-
-Dataset: National Health and Nutrition Examination Survey (NHANES)
-
-Cycle: August 2021–August 2023
-
-Files: DEMO_L, SLQ_L, PAQ_L, BPXO_L, and BMX_L
-
-Identifier for merging: SEQN
-
-Initial analytic population: NHANES participants aged 18 years and older, subject to availability of the required measurements.
+## Dataset and scope
+- **Dataset:** National Health and Nutrition Examination Survey (NHANES) — Path A
+- **Cycle:** August 2021–August 2023
+- **Files:** `DEMO_L.xpt`, `SLQ_L.xpt`, `PAQ_L.xpt`, `BPXO_L.xpt`, and `BMX_L.xpt`
+- **Identifier for merging:** `SEQN`
+- **Analytic population:** US civilian, non-institutionalized adults aged 20 years and older with complete measurements on the primary study variables ($N = 5,714$).
 
 ## Temporary title
-
-The Impact of Lifestyle on Cardiovascular Health
+Investigating the Association Between Lifestyle Factors (Sleep Duration and Sedentary Behavior) and Systolic Blood Pressure in US Adults, Accounting for BMI and Age
 
 ## Main statistical question
+Is there a significant association between usual daily sleep duration and daily sedentary behavior (minutes spent sitting) with systolic blood pressure in US adults aged 20 and older, and how does this association change when controlling for BMI, age, and gender?
 
-How do sleep duration and physical activity levels associate with systolic blood pressure in adults(20 years old and above), and do these associations differ across BMI categories?
-## Unit of observation
+## Unit of observation and target population
+- **Unit of observation:** One individual NHANES participant, uniquely identified by `SEQN` (one row per participant).
+- **Target population:** Civilian, non-institutionalized US adult population (aged $\ge 20$ years) during the 2021–2023 cycle.
 
-One NHANES participant, represented by `SEQN`. The analytical dataset will contain at most one row per participant.
-
-## Main variables
-
-- `DPQ010`–`DPQ090`: nine depression-screening symptom items.
-- `phq9_score`: derived sum of valid symptom-item scores, subject to codebook verification.
-- `DR1TSUGR`: total sugars in grams from the first dietary recall day.
-- A first-day dietary weight and appropriate survey design variables.
-- Age and selected demographic or socioeconomic variables for descriptive summaries and later analyses.
-- `DR1TKCAL`: first-day energy intake in kilocalories, subject to codebook verification.
+## Main variables and measurement scales
+- `BPXOSY1` (`BPXO_L`): Systolic blood pressure, 1st oscillometric reading (mmHg) — **Quantitative, continuous**.
+- `SLD012` (`SLQ_L`): Usual sleep duration on weekdays/workdays (hours) — **Quantitative, continuous**.
+- `PAD680` (`PAQ_L`): Daily sedentary activity / time spent sitting (minutes/day) — **Quantitative, continuous**.
+- `BMXBMI` (`BMX_L`): Body Mass Index ($\text{kg/m}^2$) — **Quantitative, continuous** (can also be categorized into standard clinical BMI groups).
+- `RIDAGEYR` (`DEMO_L`): Age at screening (years, top-coded at 80) — **Quantitative, discrete**.
+- `RIAGENDR` (`DEMO_L`): Gender (Male / Female) — **Categorical, binary (nominal)**.
+- `WTMEC2YR` (`DEMO_L`): 2-year Mobile Examination Center (MEC) survey weight — **Sampling weight**.
 
 ## Variable roles
+- **Response variable:** Systolic blood pressure (`BPXOSY1`).
+- **Primary explanatory variables:** Usual sleep duration (`SLD012`) and daily sedentary activity (`PAD680`).
+- **Confounding / mediating / grouping variables:** Body Mass Index (`BMXBMI`), Age (`RIDAGEYR`), and Gender (`RIAGENDR`).
 
-- **Systolic blood pressure (mmHg):** Response variable - Quantitative, continuous.
-- **Usual sleep duration:** Explanatory variable - Quantitative, recorded in hours.
-- **Physical activity:** Explanatory variable - Depends on the selected activity measure.
-- **BMI:** Grouping or explanatory variable - Quantitative, continuous; may also be categorized.
-- **Age:** Demographic variable - Quantitative, recorded in years.
-- **Sex recorded in NHANES:** Demographic variable - Categorical.
-
-## Type of study
-
+## Type of question
 Primarily associational and comparative.
 
 ## Initial hypothesis
-
-Sleep duration and physical activity may be associated with systolic blood pressure, and the observed associations may differ across BMI categories.
+Inadequate or excessive sleep duration and higher daily sedentary time are positively associated with higher systolic blood pressure among US adults, though a substantial portion of this association may be confounded or mediated by higher BMI and older age.
 
 ## Initial limitations
-
-1. NHANES is observational, so associations cannot by themselves establish causation or temporal order.
-2. Sleep and physical activity are self-reported and may be affected by recall or reporting error.
-3. Missing measurements may reduce the number of participants included in the analysis.
-4. NHANES uses a complex sampling design, so population-level estimates require appropriate weights and survey-design considerations.
+1. **Observational and cross-sectional design:** NHANES is not a randomized experiment; therefore, observed associations cannot establish causal relationships or temporal order.
+2. **Self-reporting bias:** Sleep duration (`SLD012`) and sedentary minutes (`PAD680`) are self-reported via questionnaires and are subject to recall bias and rounding.
+3. **Complete-case restriction:** Dropping participants with missing values on key variables reduces the sample size from 6,064 adults to 5,714, which may introduce selection bias if data are not missing completely at random.
